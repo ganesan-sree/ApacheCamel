@@ -60,11 +60,6 @@
 		</copy>
 
 
-		<copy todir="${build.home}/ApacheCamel/WEB-INF/classes/com/bean">
-				<fileset dir="${dir.home}/src/com/bean">
-					<include name="*.hbm.xml" />
-			</fileset>
-		</copy>
 
 	</target>
 
@@ -108,18 +103,7 @@
 		</war>
 	</target>
 	
-	
-	
-	<target name="ear" depends="warFile">
-				<ear destfile="${dir.home}/ApacheCamel.ear" appxml="${dir.home}/application.xml">
-					<metainf dir="${build.home}/ApacheCamel/META-INF/" />
-					<fileset dir="${dir.home}/" includes="*.war,*.jar,lib/*" />
-				</ear>
-			</target>
-		
-
-
-	<target name="deploy" depends="ear">
+	<target name="deploy" depends="warFile">
 		<copy todir="${server.apps}/">
 			<fileset dir="${dir.home}/">
 				<include name="*.war" />

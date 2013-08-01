@@ -15,46 +15,12 @@
        http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee-2.5.xsd
           http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring.xsd">
          
-         <!-- Bean definition to provide an application-wide access to the Spring applicationContext-->        
-         <bean id="EasyMedAPIApplicationContextProvider" class="com.easymed.util.EasyMedApplicationContextProvider"></bean>
-
-         <!--Imports beans related to Camel routes for HL7 -->
-         <import resource="apps-config/hl7CamelRoutes-content.xml"/>
-         
-         <!--Imports beans related to HL7 beans and configuration -->
-         <import resource="apps-config/hl7Bean-content.xml"/>
-         
-         <!--Imports beans related to authentication -->
-         <import resource="apps-config/authentication-content.xml"/>
-         
-         <!--Imports beans related to cron jobs -->
-         <import resource="apps-config/cronScheduling-content.xml"/>
+   
+   
         
         
         
          
-         <!--Imports beans related to blackberry push notifications -->
-         <import resource="apps-config/blackberrypush-push-app-context.xml"/>
-         
-         <!--Imports common beans related to blackberry push  -->
-         <import resource="apps-config/blackberrypush-commons-context.xml "/>
-         
-         <!--Imports beans related to blackberry push -->
-         <import resource="apps-config/blackberrypush-push-context.xml"/>
-                                   
-          <!--Imports beans related to blackberry client subscription -->                         
-		 <import resource="apps-config/blackberrypush-subscription-context.xml"/>
-		 
-		 <!--Imports beans related to blackberry pap services -->
-         <import resource="apps-config/blackberrypush-pap-context.xml"/>
-         
-         <!--Imports beans related to blackberry acknowledgement -->
-         <import resource="apps-config/blackberrypush-acknowledgement-context.xml"/>
-         
-         <!--Imports beans related to blackberry database -->
-         <import resource="apps-config/blackberrypush-datasource-context.xml "/>
-         
-         <!--Imports beans related to blackberry push initiator -->
-         <import resource="apps-config/blackberrypush-push-initiator-context.xml"/>
+     
          
  </beans>
