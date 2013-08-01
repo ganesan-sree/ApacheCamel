@@ -1,0 +1,60 @@
+<!-- $Id: applicationContext.xml 17022 2012-08-13 09:38:45Z ganesan $ -->
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:camel="http://camel.apache.org/schema/spring"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:jms="http://www.springframework.org/schema/jms" xmlns:jee="http://www.springframework.org/schema/jee"
+
+	xsi:schemaLocation="
+          http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+          http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+       http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd
+       http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd
+       http://www.springframework.org/schema/jms http://www.springframework.org/schema/jms/spring-jms-2.5.xsd
+       http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee-2.5.xsd
+          http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring.xsd">
+         
+         <!-- Bean definition to provide an application-wide access to the Spring applicationContext-->        
+         <bean id="EasyMedAPIApplicationContextProvider" class="com.easymed.util.EasyMedApplicationContextProvider"></bean>
+
+         <!--Imports beans related to Camel routes for HL7 -->
+         <import resource="apps-config/hl7CamelRoutes-content.xml"/>
+         
+         <!--Imports beans related to HL7 beans and configuration -->
+         <import resource="apps-config/hl7Bean-content.xml"/>
+         
+         <!--Imports beans related to authentication -->
+         <import resource="apps-config/authentication-content.xml"/>
+         
+         <!--Imports beans related to cron jobs -->
+         <import resource="apps-config/cronScheduling-content.xml"/>
+        
+        
+        
+         
+         <!--Imports beans related to blackberry push notifications -->
+         <import resource="apps-config/blackberrypush-push-app-context.xml"/>
+         
+         <!--Imports common beans related to blackberry push  -->
+         <import resource="apps-config/blackberrypush-commons-context.xml "/>
+         
+         <!--Imports beans related to blackberry push -->
+         <import resource="apps-config/blackberrypush-push-context.xml"/>
+                                   
+          <!--Imports beans related to blackberry client subscription -->                         
+		 <import resource="apps-config/blackberrypush-subscription-context.xml"/>
+		 
+		 <!--Imports beans related to blackberry pap services -->
+         <import resource="apps-config/blackberrypush-pap-context.xml"/>
+         
+         <!--Imports beans related to blackberry acknowledgement -->
+         <import resource="apps-config/blackberrypush-acknowledgement-context.xml"/>
+         
+         <!--Imports beans related to blackberry database -->
+         <import resource="apps-config/blackberrypush-datasource-context.xml "/>
+         
+         <!--Imports beans related to blackberry push initiator -->
+         <import resource="apps-config/blackberrypush-push-initiator-context.xml"/>
+         
+ </beans>
