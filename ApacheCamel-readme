@@ -34,7 +34,5 @@
 9. Runtime creation of endpoints
    context.getEndpoint("jms:queue:EZMQueueReply")
 
-10.Runtime generation of endpoints
-        context.setUuidGenerator(new org.apache.camel.impl.SimpleUuidGenerator());
-	 System.out.println(cc.getEndpoints());;
+
 

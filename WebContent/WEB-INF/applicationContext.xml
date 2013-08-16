@@ -5,8 +5,10 @@
 	xmlns:context="http://www.springframework.org/schema/context"
 	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:tx="http://www.springframework.org/schema/tx"
 	xmlns:jms="http://www.springframework.org/schema/jms" xmlns:jee="http://www.springframework.org/schema/jee"
+xmlns:mvc="http://www.springframework.org/schema/mvc"
 
 	xsi:schemaLocation="
+		http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd	
           http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
           http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
        http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd
@@ -16,8 +18,7 @@
           http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring.xsd">
 
 
-	<!-- <bean id="dynamicRoute" class="com.easymed.notificationsManager.routing.EZMDynamicRouter" 
-		/> -->
+	<bean id="dynamicRoute" class="com.routes.EZMDynamicRouter"/> 
 
 	<!-- <bean id="messagingAggregationStrategy" -->
 	<!-- class="com.easymed.notificationsManager.routing.QEAggregationStrategy" 
@@ -32,14 +33,13 @@
 	<jee:jndi-lookup id="connectionFactory" jndi-name="java:/ConnectionFactory" />
 
 
-	<camelContext id="camel" xmlns="http://camel.apache.org/schema/spring">
+	<camelContext id="camel" trace="true"  xmlns="http://camel.apache.org/schema/spring">
 		<route>
 			<from uri="jms:queue:EZMQueue?concurrentConsumers=1" />
-			<!-- <bean ref="dynamicRoute" method="route" /> -->
+			<bean ref="dynamicRoute" method="route" />
 			<to uri="mock:result" />
 		</route>
-
-		<!-- routes for clickatell gateway -->
+		
 		<route>
 			<from uri="seda:clickatell" />
 			<to uri="jms:queue:EZMQueue" />
@@ -53,37 +53,30 @@
 		<!-- routes for email -->
 		<route>
 			<from uri="seda:email" />
-
 			<to uri="jms:queue:EZMQueue" />
-
 		</route>
-
-
-
 		<route>
 			<from uri="seda:push" />
-
 			<to uri="jms:queue:EZMQueue" />
-
 		</route>
 		<route>
 			<from uri="seda:hl7" />
 			<to uri="jms:queue:EZMQueue" />
 		</route>
 
-
 	</camelContext>
 
 
 
-	<!-- This is JMS Sender,Sending message to EZMQueue queue through camel 
-		context -->
-	<bean id="senderBean" class="com.routes.JMSContext">
+	<bean id="senderBean" class="com.controller.producer.JMSContext">
 		<constructor-arg index="0" ref="camel" />
-		<constructor-arg index="1" value="jms:queue:EZMQueue" />
 	</bean>
 
 
+
+
+
+	
 
 
 </beans>
