@@ -20,7 +20,18 @@ public class EZMDynamicRouter {
 
 	    @DynamicRouter
 	public String route(@Body Object thing,	@Header(Exchange.SLIP_ENDPOINT) String ePrevious,@Properties Map<Object, Object> properties) { 													
-		QueuedEvent qe = (QueuedEvent) thing;			
+		QueuedEvent qe = (QueuedEvent) thing;
+		System.out.println("Dyanic router !!!!!!!!!!!!!!!!!!!!"+ePrevious);
+		
+		if(ePrevious !=null && ePrevious.contains("clickatell")){
+			return "seda:email";
+		}
+		if(ePrevious !=null && ePrevious.contains("email")){
+			return "seda:push";
+		}
+		if(ePrevious !=null && ePrevious.contains("push")){
+			return "seda:hl7";
+		}
 		return "seda:clickatell";
 	}
 

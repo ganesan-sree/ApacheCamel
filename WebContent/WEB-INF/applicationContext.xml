@@ -19,6 +19,14 @@ xmlns:mvc="http://www.springframework.org/schema/mvc"
 
 
 	<bean id="dynamicRoute" class="com.routes.EZMDynamicRouter"/> 
+	
+	<bean id="clickatell" class="com.endpoints.SMSEndpoint"/>
+	<bean id="email" class="com.endpoints.EmailEndpoint"/>
+	<bean id="upsidewirreless" class="com.endpoints.SMSEndpoint"/>
+	<bean id="hl7" class="com.endpoints.HL7Endpoint"/>
+	<bean id="push" class="com.endpoints.PushEndpoint"/>
+	 
+	
 
 	<!-- <bean id="messagingAggregationStrategy" -->
 	<!-- class="com.easymed.notificationsManager.routing.QEAggregationStrategy" 
@@ -33,7 +41,7 @@ xmlns:mvc="http://www.springframework.org/schema/mvc"
 	<jee:jndi-lookup id="connectionFactory" jndi-name="java:/ConnectionFactory" />
 
 
-	<camelContext id="camel" trace="true"  xmlns="http://camel.apache.org/schema/spring">
+	<camelContext id="camel" trace="false"  xmlns="http://camel.apache.org/schema/spring">
 		<route>
 			<from uri="jms:queue:EZMQueue?concurrentConsumers=1" />
 			<bean ref="dynamicRoute" method="route" />
@@ -42,25 +50,30 @@ xmlns:mvc="http://www.springframework.org/schema/mvc"
 		
 		<route>
 			<from uri="seda:clickatell" />
+			<bean ref="clickatell"/>
 			<to uri="jms:queue:EZMQueue" />
 		</route>
 
 		<route>
 			<from uri="seda:upsidewireless" />
+			<bean ref="upsidewirreless"/>
 			<to uri="jms:queue:EZMQueue" />
 		</route>
 
-		<!-- routes for email -->
+	
 		<route>
 			<from uri="seda:email" />
+			<bean ref="email"/>
 			<to uri="jms:queue:EZMQueue" />
 		</route>
 		<route>
 			<from uri="seda:push" />
+			<bean ref="push"/>
 			<to uri="jms:queue:EZMQueue" />
 		</route>
 		<route>
 			<from uri="seda:hl7" />
+			<bean ref="hl7"/>
 			<to uri="jms:queue:EZMQueue" />
 		</route>
 

@@ -16,7 +16,7 @@ private final Logger log = Logger.getLogger(HL7Endpoint.class);
 
     public void run(@Body Object thing,@Headers Map hdrMap,@OutHeaders Map outHdrs){
     	    	
-		 log.debug("HL7 Endpointsssssssssssss\n\n\n");	      						
+    	System.out.println("HL7 Endpointsssssssssssss\n\n\n");	      						
     }
   
 }

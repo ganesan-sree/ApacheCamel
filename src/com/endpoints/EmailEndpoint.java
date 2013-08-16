@@ -10,11 +10,11 @@ import org.apache.camel.Headers;
 import org.apache.camel.OutHeaders;
 import org.apache.log4j.Logger;
 
-public class EmailEndpoint{
+public class EmailEndpoint {
 	
 	private final static Logger log = Logger.getLogger(EmailEndpoint.class);
 
 	public void run(@Body Object thing, @Headers Map hdrMap,@OutHeaders Map outHdrs) {
-		log.debug("EMAIL Endpointsssssssssssss\n\n\n");		
+	 System.out.println("EMAIL Endpointsssssssssssss\n\n\n");		
 	}
 }
