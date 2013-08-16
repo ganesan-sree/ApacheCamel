@@ -31,6 +31,9 @@ public class EZMDynamicRouter {
 		}
 		if(ePrevious !=null && ePrevious.contains("push")){
 			return "seda:hl7";
+		}		
+		if(ePrevious !=null && ePrevious.contains("hl7")){
+			return null;
 		}
 		return "seda:clickatell";
 	}
