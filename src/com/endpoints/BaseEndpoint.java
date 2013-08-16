@@ -1,4 +1,4 @@
-package com.easymed.notificationsManager.endpoints;
+package com.endpoints;
 
 import org.apache.log4j.Logger;
 import org.apache.camel.Body;

@@ -1,4 +1,4 @@
-package com.easymed.notificationsManager.endpoints;
+package com.endpoints;
 
 
 import java.util.Map;

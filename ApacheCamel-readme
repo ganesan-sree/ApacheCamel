@@ -1,0 +1,40 @@
+1. <to uri="log:com.easymed.notificationsManager.model.QueuedEvent?level=DEBUG"/>           
+
+
+
+2.<camelContext id="camel" trace="true" xmlns="http://camel.apache.org/schema/spring">
+
+
+
+3.<from uri="jms:queue:EZMQueue?concurrentConsumers=1" />
+  <log message="Got ${body}"/>
+  <bean ref="dynamicRoute" method="route" />
+  <to uri="mock:result" />
+
+
+4.	<onException>
+		<exception>java.io.IOException</exception>
+		<redeliveryPolicy maximumRedeliveries="2" />
+	</onException>
+
+5.<errorHandler id="loggingErrorHandler" type="LoggingErrorHandler" logName="foo" level="INFO" xmlns="http://camel.apache.org/schema/spring"/>
+  <camelContext id="camel" errorHandlerRef="loggingErrorHandler" xmlns="http://camel.apache.org/schema/spring">
+  <errorHandler id="loggingErrorHandler" type="LoggingErrorHandler" logName="foo" level="INFO" xmlns="http://camel.apache.org/schema/spring">
+    <redeliveryPolicy maximumRedeliveries="2" redeliveryDelay="0" logHandled="true" asyncDelayedRedelivery="true"/>    
+  </errorHandler>
+
+6. email=seda:email
+   <propertyPlaceholder id="properties" location="route.properties"/>
+   <from uri="properties:{{email}}"/>
+
+7.<to uri="context:anotherCamelContext:endpointInanothercontext"/>    ex:<to uri="context:push-camel-context:direct:APNSConnector"/>
+
+8.from("direct:a").multicast().parallelProcessing().to("direct:x", "direct:y", "direct:z");
+
+9. Runtime creation of endpoints
+   context.getEndpoint("jms:queue:EZMQueueReply")
+
+10.Runtime generation of endpoints
+        context.setUuidGenerator(new org.apache.camel.impl.SimpleUuidGenerator());
+	 System.out.println(cc.getEndpoints());;
+
