@@ -15,10 +15,75 @@
        http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee-2.5.xsd
           http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring.xsd">
 
-        
-        
-        
-         
-     
-         
- </beans>
+
+	<!-- <bean id="dynamicRoute" class="com.easymed.notificationsManager.routing.EZMDynamicRouter" 
+		/> -->
+
+	<!-- <bean id="messagingAggregationStrategy" -->
+	<!-- class="com.easymed.notificationsManager.routing.QEAggregationStrategy" 
+		/> -->
+
+	<!-- <bean id="qe_splitter" class="com.easymed.notificationsManager.routing.QESplitterBean" 
+		/> -->
+
+
+
+
+	<jee:jndi-lookup id="connectionFactory" jndi-name="java:/ConnectionFactory" />
+
+
+	<camelContext id="camel" xmlns="http://camel.apache.org/schema/spring">
+		<route>
+			<from uri="jms:queue:EZMQueue?concurrentConsumers=1" />
+			<!-- <bean ref="dynamicRoute" method="route" /> -->
+			<to uri="mock:result" />
+		</route>
+
+		<!-- routes for clickatell gateway -->
+		<route>
+			<from uri="seda:clickatell" />
+			<to uri="jms:queue:EZMQueue" />
+		</route>
+
+		<route>
+			<from uri="seda:upsidewireless" />
+			<to uri="jms:queue:EZMQueue" />
+		</route>
+
+		<!-- routes for email -->
+		<route>
+			<from uri="seda:email" />
+
+			<to uri="jms:queue:EZMQueue" />
+
+		</route>
+
+
+
+		<route>
+			<from uri="seda:push" />
+
+			<to uri="jms:queue:EZMQueue" />
+
+		</route>
+		<route>
+			<from uri="seda:hl7" />
+			<to uri="jms:queue:EZMQueue" />
+		</route>
+
+
+	</camelContext>
+
+
+
+	<!-- This is JMS Sender,Sending message to EZMQueue queue through camel 
+		context -->
+	<bean id="senderBean" class="com.routes.JMSContext">
+		<constructor-arg index="0" ref="camel" />
+		<constructor-arg index="1" value="jms:queue:EZMQueue" />
+	</bean>
+
+
+
+
+</beans>
