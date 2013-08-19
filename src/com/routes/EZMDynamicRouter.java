@@ -17,25 +17,35 @@ public class EZMDynamicRouter {
     public EZMDynamicRouter() {
         registerMyTrustManager();
     }
+    
+    
 
-	    @DynamicRouter
+	@DynamicRouter
 	public String route(@Body Object thing,	@Header(Exchange.SLIP_ENDPOINT) String ePrevious,@Properties Map<Object, Object> properties) { 													
 		QueuedEvent qe = (QueuedEvent) thing;
-		System.out.println("Dyanic router !!!!!!!!!!!!!!!!!!!!"+ePrevious);
+		System.out.println("Queue Event "+qe.toString());
+		System.out.println("Dyanic router !!!!!!"+ePrevious);
 		
-		if(ePrevious !=null && ePrevious.contains("clickatell")){
+		if(ePrevious !=null && ePrevious.contains("clickatell")){			
 			return "seda:email";
 		}
-		if(ePrevious !=null && ePrevious.contains("email")){
+		if(ePrevious !=null && ePrevious.contains("email")){			
 			return "seda:push";
 		}
-		if(ePrevious !=null && ePrevious.contains("push")){
+		if(ePrevious !=null && ePrevious.contains("push")){			
 			return "seda:hl7";
 		}		
-		if(ePrevious !=null && ePrevious.contains("hl7")){
+		if(ePrevious !=null && ePrevious.contains("hl7")){			
 			return null;
+			
 		}
-		return "seda:clickatell";
+		
+		 if(qe.getLastChannel() ==null){			 
+			return "seda:clickatell";	
+		 }
+		 		 
+		 return null;
+		
 	}
 
  

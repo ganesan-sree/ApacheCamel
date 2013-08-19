@@ -1,21 +1,18 @@
-<!-- $Id: applicationContext.xml 17022 2012-08-13 09:38:45Z ganesan $ -->
-
 <beans xmlns="http://www.springframework.org/schema/beans"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:camel="http://camel.apache.org/schema/spring"
 	xmlns:context="http://www.springframework.org/schema/context"
 	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:tx="http://www.springframework.org/schema/tx"
 	xmlns:jms="http://www.springframework.org/schema/jms" xmlns:jee="http://www.springframework.org/schema/jee"
-xmlns:mvc="http://www.springframework.org/schema/mvc"
-
+    xmlns:mvc="http://www.springframework.org/schema/mvc"
 	xsi:schemaLocation="
-		http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd	
-          http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
-          http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
-       http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd
-       http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd
-       http://www.springframework.org/schema/jms http://www.springframework.org/schema/jms/spring-jms-2.5.xsd
-       http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee-2.5.xsd
-          http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring.xsd">
+	http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd	
+    http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+    http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+    http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd
+    http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd
+    http://www.springframework.org/schema/jms http://www.springframework.org/schema/jms/spring-jms-2.5.xsd
+    http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee-2.5.xsd
+    http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring.xsd">
 
 
 	<bean id="dynamicRoute" class="com.routes.EZMDynamicRouter"/> 
@@ -26,20 +23,11 @@ xmlns:mvc="http://www.springframework.org/schema/mvc"
 	<bean id="hl7" class="com.endpoints.HL7Endpoint"/>
 	<bean id="push" class="com.endpoints.PushEndpoint"/>
 	 
-	
 
-	<!-- <bean id="messagingAggregationStrategy" -->
-	<!-- class="com.easymed.notificationsManager.routing.QEAggregationStrategy" 
-		/> -->
-
-	<!-- <bean id="qe_splitter" class="com.easymed.notificationsManager.routing.QESplitterBean" 
-		/> -->
-
-
-
+	<!-- <bean id="messagingAggregationStrategy"class="com.easymed.notificationsManager.routing.QEAggregationStrategy"/> -->
+	<!-- <bean id="qe_splitter" class="com.easymed.notificationsManager.routing.QESplitterBean" /> -->
 
 	<jee:jndi-lookup id="connectionFactory" jndi-name="java:/ConnectionFactory" />
-
 
 	<camelContext id="camel" trace="false"  xmlns="http://camel.apache.org/schema/spring">
 		<route>

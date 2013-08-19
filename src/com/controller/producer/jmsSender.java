@@ -12,7 +12,6 @@ public class jmsSender {
 
 	@RequestMapping(value = "doSendJMS", method = RequestMethod.GET)
 	public String doSend(HttpServletRequest request,HttpServletResponse response) throws Exception {		
-		System.out.println("hellooooo");	
 		QueuedEvent qu= new QueuedEvent();
 		try {
 			JMSContext.getInstance().sendJMSQueue(qu, "jms:queue:EZMQueue");
