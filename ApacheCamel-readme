@@ -36,3 +36,33 @@
 
 
 
+10. Order of start up
+
+<route startupOrder="1">
+    <from uri="seda:foo"/>
+    <to uri="mock:result"/>
+</route>
+ 
+<route startupOrder="2">
+    <from uri="direct:start"/>
+    <to uri="seda:foo"/>
+</route>
+
+11. Load balancing
+
+ <from uri="direct:start"/>
+  <loadBalance>
+    <weighted roundRobin="false" distributionRatio="4-2-1" distributionRatioDelimiter="-"/>
+      <to uri="mock:x"/>
+      <to uri="mock:y"/>
+      <to uri="mock:z"/>
+  </loadBalance>
+
+ <loadBalance>
+       <failover>
+           <exception>java.io.IOException</exception>
+           <exception>com.mycompany.MyOtherException</exception>
+       </failover>
+       <to uri="direct:a"/>
+       <to uri="direct:b"/>
+   </loadBalance>
